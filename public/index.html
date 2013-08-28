@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="styles.css" />
+		<title>
+			Neo4J Demo
+		</title>
+	</head>
+	<body>
+		<div>
+			<h1>
+				Neo4J Demo
+			</h1>
+		</div>
+		<div id="koContainer">
+
+			<div>
+					<h2>
+						Locations
+					</h2>
+				<!-- ko foreach: locations -->
+					<div>
+						<span data-bind="text: Name"></span>
+					</div>
+				<!-- /ko -->
+			</div>
+			
+		</div>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+		<script>
+
+			var vm = {
+				locations: ko.observableArray([])
+			};
+
+			ko.applyBindings(vm, document.getElementById('koContainer'));
+
+			$.get('/locations', function(res){
+				$.each(res, function(i, job){
+					vm.locations.push(job);
+				});
+			});
+
+		</script>
+	</body>
+</html>
